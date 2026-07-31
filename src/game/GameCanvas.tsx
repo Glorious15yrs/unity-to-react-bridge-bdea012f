@@ -400,7 +400,12 @@ export function GameCanvas({ phase, onHud, onOver, controlsRef }: GameCanvasProp
   }, [g, controlsRef]);
 
   return (
-    <Canvas shadows camera={{ position: [0, 4.6, 9], fov: 60 }} dpr={[1, 1.75]}>
+    <Canvas
+      shadows
+      camera={{ position: [0, 4.6, 9], fov: 60 }}
+      dpr={[1, 1.75]}
+      gl={{ toneMappingExposure: 1.9 }}
+    >
       <World g={g} onHud={onHud} onOver={onOver} />
     </Canvas>
   );
