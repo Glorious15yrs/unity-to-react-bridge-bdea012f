@@ -2098,7 +2098,7 @@ var UnityLoader = UnityLoader || {
     processWasmFrameworkJob: function(e, t) {
         var r = UnityLoader.Job.result(e, "downloadWasmFramework");
         UnityLoader.loadCode(e, r, function(r, n) {
-            e.mainScriptUrlOrBlob = n, e.isModularized && (UnityLoader[r] = my4399UnityModule), UnityLoader[r](e), t.complete()
+            e.mainScriptUrlOrBlob = n, e.isModularized && (UnityLoader[r] = UnityModule), UnityLoader[r](e), t.complete()
         }, {
             Module: e,
             url: e.wasmFrameworkUrl,
@@ -2118,7 +2118,7 @@ var UnityLoader = UnityLoader || {
     processAsmFrameworkJob: function(e, t) {
         var r = UnityLoader.Job.result(e, "downloadAsmFramework");
         UnityLoader.loadCode(e, r, function(r, n) {
-            e.isModularized && (e.mainScriptUrlOrBlob = n, UnityLoader[r] = my4399UnityModule), UnityLoader[r](e), t.complete()
+            e.isModularized && (e.mainScriptUrlOrBlob = n, UnityLoader[r] = UnityModule), UnityLoader[r](e), t.complete()
         }, {
             Module: e,
             url: e.asmFrameworkUrl,
