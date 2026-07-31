@@ -20,7 +20,7 @@ function loadScript(src: string) {
   return new Promise<void>((resolve, reject) => {
     const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
     if (existing) {
-      if (existing.dataset.loaded === "true") return resolve();
+      if (existing.dataset['loaded'] === "true") return resolve();
       existing.addEventListener("load", () => resolve());
       existing.addEventListener("error", () => reject(new Error(`Failed to load ${src}`)));
       return;
@@ -29,7 +29,7 @@ function loadScript(src: string) {
     script.src = src;
     script.async = true;
     script.onload = () => {
-      script.dataset.loaded = "true";
+      script.dataset['loaded'] = "true";
       resolve();
     };
     script.onerror = () => reject(new Error(`Failed to load ${src}`));
