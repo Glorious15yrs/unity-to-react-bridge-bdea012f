@@ -291,9 +291,11 @@ function World({ g, onHud, onOver }: WorldProps) {
   return (
     <>
       <color attach="background" args={["#0d1b2a"]} />
-      <fog attach="fog" args={["#0d1b2a", 30, 120]} />
-      <hemisphereLight intensity={0.7} groundColor="#1b263b" color="#cfe8ff" />
-      <directionalLight position={[6, 14, 6]} intensity={1.5} castShadow />
+      <fog attach="fog" args={["#16233a", 45, 140]} />
+      <ambientLight intensity={0.9} />
+      <hemisphereLight intensity={1.4} groundColor="#3b4a6b" color="#dbeafe" />
+      <directionalLight position={[6, 14, 6]} intensity={2.6} castShadow />
+      <pointLight position={[0, 6, 4]} intensity={40} distance={40} color="#ffd8a8" />
 
       {segments.map((i) => (
         <group
@@ -305,7 +307,7 @@ function World({ g, onHud, onOver }: WorldProps) {
         >
           <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
             <planeGeometry args={[10, SEG_LEN]} />
-            <meshStandardMaterial color="#39405a" roughness={0.95} />
+            <meshStandardMaterial color="#525c7d" roughness={0.95} />
           </mesh>
           {LANES.map((x, li) => (
             <mesh key={li} rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.01, 0]} receiveShadow>
@@ -316,7 +318,7 @@ function World({ g, onHud, onOver }: WorldProps) {
           {[-4.6, 4.6].map((x, k) => (
             <mesh key={k} position={[x, 1.2, 0]}>
               <boxGeometry args={[0.5, 2.4, SEG_LEN]} />
-              <meshStandardMaterial color="#22304a" roughness={0.9} />
+              <meshStandardMaterial color="#38496b" roughness={0.9} />
             </mesh>
           ))}
           {[-8.5, 8.5].map((x, k) => (
