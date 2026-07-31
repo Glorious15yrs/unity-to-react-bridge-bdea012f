@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
+    config?: Record<string, unknown>;
     UnityLoader?: {
       instantiate: (
         container: string | HTMLElement,
@@ -15,6 +16,22 @@ declare global {
 
 const LOADER_SRC = "/game/UnityLoader.2019.2.js";
 const BUILD_JSON = "/game/Build/SanFrancisco.json";
+
+// The patched Unity loader reads decompressed sizes from window.config for progress reporting.
+const UNITY_CONFIG = {
+  loader: "unity",
+  debug: false,
+  title: "Subway Surfers",
+  unityVersion: "2019.4.18f1",
+  unityWebglBuildUrl: BUILD_JSON,
+  fileSize: 35,
+  cachedDecompressedFileSizes: {
+    "SanFrancisco.data.unityweb": 18323917,
+    "SanFrancisco.wasm.code.unityweb": 7279617,
+    "SanFrancisco.wasm.framework.unityweb": 90693,
+  },
+};
+
 
 function loadScript(src: string) {
   return new Promise<void>((resolve, reject) => {
