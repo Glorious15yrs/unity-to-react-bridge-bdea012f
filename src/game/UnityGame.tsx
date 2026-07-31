@@ -66,6 +66,7 @@ export function UnityGame() {
 
     (async () => {
       try {
+        window.config = { ...(window.config ?? {}), ...UNITY_CONFIG };
         await loadScript(LOADER_SRC);
         if (cancelled || !containerRef.current || !window.UnityLoader) return;
         instanceRef.current = window.UnityLoader.instantiate(containerRef.current, BUILD_JSON, {
