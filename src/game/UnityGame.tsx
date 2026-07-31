@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { installPokiBridge } from "./pokiBridge";
 
 declare global {
   interface Window {
@@ -67,6 +68,7 @@ export function UnityGame() {
     (async () => {
       try {
         window.config = { ...(window.config ?? {}), ...UNITY_CONFIG };
+        installPokiBridge();
         await loadScript(LOADER_SRC);
         if (cancelled || !containerRef.current || !window.UnityLoader) return;
         instanceRef.current = window.UnityLoader.instantiate(containerRef.current, BUILD_JSON, {
@@ -76,6 +78,7 @@ export function UnityGame() {
             if (value === 1) setReady(true);
           },
         });
+        (window as unknown as Record<string, unknown>)["unityGame"] = instanceRef.current;
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : "Unknown error");
       }
