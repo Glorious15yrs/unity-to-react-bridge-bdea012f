@@ -1850,7 +1850,7 @@ var UnityLoader = UnityLoader || {
                 var n = r.target.responseURL,
                     o = (n.split("/Build/")[1] || n.split("/").pop() || "");
                 o = o.split("?")[0];
-                var a = window.config.cachedDecompressedFileSizes ? window.config.cachedDecompressedFileSizes[o] : 0;
+                var a = (window.config && window.config.cachedDecompressedFileSizes) ? (window.config && window.config.cachedDecompressedFileSizes)[o] : 0;
                 if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
                     a *= .52
                 }
