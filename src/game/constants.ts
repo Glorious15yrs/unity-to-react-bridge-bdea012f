@@ -1,4 +1,5 @@
-export const LANES = [-2.2, 0, 2.2] as const;
+export const LANES: number[] = [-2.2, 0, 2.2];
+export const laneX = (i: number): number => LANES[i] ?? 0;
 export const LANE_COUNT = LANES.length;
 
 export const START_SPEED = 12;

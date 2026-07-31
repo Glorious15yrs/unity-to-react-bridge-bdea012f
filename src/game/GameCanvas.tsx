@@ -1,8 +1,9 @@
 import { useRef, useMemo, useEffect } from "react";
-import { Canvas, useFrame, type ThreeElements } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import {
   LANES,
+  laneX,
   GRAVITY,
   JUMP_VELOCITY,
   ROLL_DURATION,
@@ -241,7 +242,7 @@ function World({ g, onHud, onOver }: WorldProps) {
     }
 
     // smooth lane
-    const targetX = LANES[g.lane];
+    const targetX = laneX(g.lane);
     g.x += (targetX - g.x) * Math.min(1, dt * 14);
 
     if (player.current) {
@@ -260,7 +261,7 @@ function World({ g, onHud, onOver }: WorldProps) {
     cam.lookAt(g.x * 0.35, 1.4, -8);
 
     // track segments
-    segRefs.current.forEach((s, i) => {
+    segRefs.current.forEach((s) => {
       if (!s) return;
       if (running) {
         s.position.z += g.speed * dt;
@@ -272,14 +273,14 @@ function World({ g, onHud, onOver }: WorldProps) {
       const o = g.obstacles[i];
       if (!m || !o) return;
       m.visible = o.active;
-      if (o.active) m.position.set(LANES[o.lane], 0, o.z);
+      if (o.active) m.position.set(laneX(o.lane), 0, o.z);
     });
     coinRefs.current.forEach((m, i) => {
       const c = g.coinsPool[i];
       if (!m || !c) return;
       m.visible = c.active;
       if (c.active) {
-        m.position.set(LANES[c.lane], c.y, c.z);
+        m.position.set(laneX(c.lane), c.y, c.z);
         m.rotation.y += dt * 4;
       }
     });
