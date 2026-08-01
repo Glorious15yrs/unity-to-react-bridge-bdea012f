@@ -15,7 +15,9 @@ declare global {
   }
 }
 
-const LOADER_SRC = "/game/UnityLoader.2019.2.js";
+// Keep this versioned: browsers cache Unity loaders aggressively, and an older
+// copy can still load Poki's domain-lock path after the game reaches 100%.
+const LOADER_SRC = "/game/UnityLoader.2019.2.js?v=local-bridge-2";
 const BUILD_JSON = "/game/Build/SanFrancisco.json";
 
 // The patched Unity loader reads decompressed sizes from window.config for progress reporting.
