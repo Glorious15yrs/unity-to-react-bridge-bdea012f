@@ -1772,11 +1772,11 @@ var UnityLoader = UnityLoader || {
         handler: function(e, t) {
             var r = t ? this.demangle(e, t) : e.message;
             if (!(t && t.errorhandler && t.errorhandler(r, e.filename, e.lineno) || (console.log("Invoking error handler due to\n" + r), "function" == typeof dump && dump("Invoking error handler due to\n" + r), -1 != r.indexOf("UnknownError") || -1 != r.indexOf("Program terminated with exit(0)") || this.didShowErrorMessage))) {
-                parent.showUnitywebNoSupport();
+                ("function" == typeof parent.showUnitywebNoSupport) && parent.showUnitywebNoSupport();
             }
         },
         popup: function(e, t, r) {
-            parent.showUnitywebNoSupport();
+            ("function" == typeof parent.showUnitywebNoSupport) && parent.showUnitywebNoSupport();
         }
     },
     Job: {
@@ -1848,9 +1848,9 @@ var UnityLoader = UnityLoader || {
         update: function(e, t, r) {
             if (r && !r.lengthComputable) {
                 var n = r.target.responseURL,
-                    o = n.split("/Build/")[1];
+                    o = (n.split("/Build/")[1] || n.split("/").pop() || "");
                 o = o.split("?")[0];
-                var a = window.config.cachedDecompressedFileSizes ? window.config.cachedDecompressedFileSizes[o] : 0;
+                var a = (window.config && window.config.cachedDecompressedFileSizes) ? (window.config && window.config.cachedDecompressedFileSizes)[o] : 0;
                 if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
                     a *= .52
                 }
@@ -2098,7 +2098,7 @@ var UnityLoader = UnityLoader || {
     processWasmFrameworkJob: function(e, t) {
         var r = UnityLoader.Job.result(e, "downloadWasmFramework");
         UnityLoader.loadCode(e, r, function(r, n) {
-            e.mainScriptUrlOrBlob = n, e.isModularized && (UnityLoader[r] = my4399UnityModule), UnityLoader[r](e), t.complete()
+            e.mainScriptUrlOrBlob = n, e.isModularized && (UnityLoader[r] = UnityModule), UnityLoader[r](e), t.complete()
         }, {
             Module: e,
             url: e.wasmFrameworkUrl,
@@ -2118,7 +2118,7 @@ var UnityLoader = UnityLoader || {
     processAsmFrameworkJob: function(e, t) {
         var r = UnityLoader.Job.result(e, "downloadAsmFramework");
         UnityLoader.loadCode(e, r, function(r, n) {
-            e.isModularized && (e.mainScriptUrlOrBlob = n, UnityLoader[r] = my4399UnityModule), UnityLoader[r](e), t.complete()
+            e.isModularized && (e.mainScriptUrlOrBlob = n, UnityLoader[r] = UnityModule), UnityLoader[r](e), t.complete()
         }, {
             Module: e,
             url: e.asmFrameworkUrl,
@@ -2209,7 +2209,7 @@ var UnityLoader = UnityLoader || {
             return n.compatibilityCheck(n, function() {
                 var t = new XMLHttpRequest;
                 t.open("GET", n.url, !0), t.responseType = "text", t.onerror = function() {
-                    parent.showUnitywebNoSupport();
+                    ("function" == typeof parent.showUnitywebNoSupport) && parent.showUnitywebNoSupport();
                 }, t.onload = function() {
                     var a = JSON.parse(t.responseText);
                     for (var s in a) void 0 === o[s] && (o[s] = a[s]);
